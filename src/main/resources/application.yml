@@ -1,0 +1,34 @@
+app:
+  name: ecommerce_api
+  version: 1.0.0
+  openapi:
+    dev-url: samlogy.com
+
+oauth2:
+  resource-server:
+    jwt:
+      issuer-uri:  http://localhost:10000/auth/realms/monolithic-back
+
+  springdoc:
+    api-docs:
+      path: /samlogy-api-docs
+    packages-to-scan: com.samlogy.spring.swagger.controller
+    swagger-ui:
+      filter: true
+      operationsSorter: method
+      path: /samlogy-documentation
+      tagsSorter: alpha
+      tryItOutEnabled: true
+
+spring:
+  jpa:
+    database: postgresql
+    hibernate:
+      ddl-auto: validate
+      naming:
+        strategy: org.hibernate.cfg.ImprovedNamingStrategy
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+  profiles:
+    active: int
