@@ -18,12 +18,8 @@ import io.swagger.v3.oas.annotations.servers.Server;
         ),
         servers = {
                 @Server(
-                        url = "http://qua-vm-1.check-consulting.net:8080",
-                        description = "Serveur Environnement QUA - VM N°1"
-                ),
-                @Server(
-                        url = "http://qua-vm-2.check-consulting.net:8080",
-                        description = "Serveur Environnement QUA - VM N°2"
+                        url = "http://localhost:8080",
+                        description = "Serveur Environnement Local"
                 )
         }
 )

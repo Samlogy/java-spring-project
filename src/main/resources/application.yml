@@ -4,10 +4,10 @@ app:
   openapi:
     dev-url: samlogy.com
 
-oauth2:
-  resource-server:
-    jwt:
-      issuer-uri:  http://localhost:10000/auth/realms/monolithic-back
+#oauth2:
+#  resource-server:
+#    jwt:
+#      issuer-uri:  http://localhost:10000/auth/realms/monolithic-back
 
   springdoc:
     api-docs:
@@ -30,5 +30,11 @@ spring:
     properties:
       hibernate:
         dialect: org.hibernate.dialect.PostgreSQLDialect
+
+#  security:
+#    user:
+#      name=user
+#      password=password
+
   profiles:
     active: int

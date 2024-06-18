@@ -2,7 +2,6 @@ package com.example.back.service;
 
 import com.example.back.exception.NotFoundException;
 import com.example.back.model.Customer;
-import com.example.back.model.User;
 import com.example.back.repository.CustomerRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
