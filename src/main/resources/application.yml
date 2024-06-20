@@ -1,0 +1,46 @@
+app:
+    name: ecommerce_api
+    version: 1.0.0
+    openapi:
+        dev-url: samlogy.com
+
+    springdoc:
+        api-docs:
+            path: /samlogy-api-docs
+        packages-to-scan: com.samlogy.spring.swagger.controller
+        swagger-ui:
+            filter: true
+            operationsSorter: method
+            path: /samlogy-documentation
+            tagsSorter: alpha
+            tryItOutEnabled: true
+
+spring:
+    jpa:
+        database: postgresql
+        show-sql: true
+        hibernate:
+            ddl-auto: create-drop #validate
+            naming:
+                strategy: org.hibernate.cfg.ImprovedNamingStrategy
+        properties:
+            hibernate:
+                dialect: org.hibernate.dialect.PostgreSQLDialect
+                format_sql: true
+    datasource:
+        url: jdbc:postgresql://localhost:5433/keycloak
+        username: postgres
+        password: postgres
+        driverClassName: org.postgresql.Driver
+
+    flyway:
+        baselineOnMigrate:  true
+
+#profiles:
+#    active: int
+
+#security:
+#    user:
+#      name=user
+#      password=password
+
