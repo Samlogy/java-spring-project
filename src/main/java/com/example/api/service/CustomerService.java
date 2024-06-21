@@ -34,7 +34,9 @@ public class CustomerService {
     }
 
     public void deleteCustomer(Integer customerId) {
-        Customer customer = getCustomerById(customerId);
-        customerRepository.delete(customer);
+        Customer customer = customerRepository.findById(customerId)
+                .orElseThrow(() -> new NotFoundException("Customer does not exist with this ID: " + customerId));
+        customerRepository.deleteById(customerId);
     }
+
 }

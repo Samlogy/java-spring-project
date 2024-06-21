@@ -1,24 +1,25 @@
 package com.example.api.unit;
 
+import com.example.api.exception.NotFoundException;
 import com.example.api.model.Customer;
 import com.example.api.repository.CustomerRepository;
 import com.example.api.service.CustomerService;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.test.context.ActiveProfiles;
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.*;
 
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
-import static org.mockito.Mockito.when;
-
-//@RunWith(MockitoJUnitRunner.class)
 @ExtendWith(MockitoExtension.class)
 @ActiveProfiles("test")
 public class CustomerServiceTest {
@@ -29,6 +30,14 @@ public class CustomerServiceTest {
     @Mock
     private CustomerRepository customerRepository;
 
+    private Customer customer;
+
+    @BeforeEach
+    public void setUp() {
+        customer = Customer.builder().id(1).fullName("sam sam").build();
+    }
+
+
     @Test
     public void whenGetCustomerById_thenThrowNotFoundException() {
         // given
@@ -38,7 +47,7 @@ public class CustomerServiceTest {
         when(customerRepository.findById(nonExistentCustomerId)).thenReturn(Optional.empty());
 
         // then
-        assertThrows(ChangeSetPersister.NotFoundException.class, () -> {
+        assertThrows(NotFoundException.class, () -> {
             customerService.getCustomerById(nonExistentCustomerId);
         });
     }
@@ -48,23 +57,18 @@ public class CustomerServiceTest {
     public void whenGetCustomerById_thenReturnExistingCustomer() {
         // given
         int customerId = 1;
-        Customer customer = new Customer();
-        customer.setId(customerId);
         when(customerRepository.findById(customerId)).thenReturn(Optional.of(customer));
 
         // when
-        Optional<Customer> foundCustomerOpt = customerService.getCustomerById(customerId);
+        Optional<Customer> foundCustomerOpt = Optional.ofNullable(customerService.getCustomerById(customerId));
 
         // then
-        assertTrue(foundCustomerOpt.isPresent()); // Ensure Optional is not empty
+        assertTrue(foundCustomerOpt.isPresent());
         assertEquals(foundCustomerOpt.get().getId(), customerId);
     }
 
     @Test
     public void whenGetAllCustomers_thenReturnCustomerList() {
-        // given
-        Customer customer = new Customer();
-        customer.setFullName("sam sam");
         List<Customer> customers = Arrays.asList(customer);
         when(customerRepository.findAll()).thenReturn(customers);
 
@@ -78,9 +82,6 @@ public class CustomerServiceTest {
 
     @Test
     public void whenCreateCustomer_thenReturnCustomer() {
-        // given
-        Customer customer = new Customer();
-        customer.setFullName("sam sam");
         when(customerRepository.save(customer)).thenReturn(customer);
 
         // when
@@ -88,6 +89,36 @@ public class CustomerServiceTest {
 
         // then
         assertEquals(createdCustomer.getFullName(), "sam sam");
-//        verify(customerRepository, times(1)).save(customer);
     }
+
+    @Test
+    public void whenDeleteCustomerById_thenReturnExistingCustomer() {
+        // given
+        int customerId = customer.getId();
+        when(customerRepository.findById(customerId)).thenReturn(Optional.of(customer));
+        doNothing().when(customerRepository).deleteById(customerId);
+
+        // when
+        customerService.deleteCustomer(customerId);
+
+        // then
+        verify(customerRepository, times(1)).findById(customerId);
+        verify(customerRepository, times(1)).deleteById(customerId);
+    }
+
+    @Test
+    public void whenDeleteCustomerById_thenThrowNotFoundException() {
+        // given
+        int nonExistentCustomerId = 999;
+        when(customerRepository.findById(nonExistentCustomerId)).thenReturn(Optional.empty());
+
+        // then
+        assertThrows(NotFoundException.class, () -> {
+            customerService.deleteCustomer(nonExistentCustomerId);
+        });
+
+        verify(customerRepository, times(1)).findById(nonExistentCustomerId);
+        verify(customerRepository, never()).deleteById(nonExistentCustomerId);
+    }
+
 }
