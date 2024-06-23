@@ -8,31 +8,28 @@ import lombok.NoArgsConstructor;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
-import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
-
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
 @Entity
-@Table(name = "orderr")
-public class Orderr {
+@Table(name = "order_item")
+public class OrderItem {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(name = "status")
-    private String status;
+    private String name;
+    private int quantity;
+    private float price;
 
-    @Column(name = "total_price")
-    private float totalPrice;
-
-    @Column(name = "order_date")
-    private LocalDate orderDate;
-
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "orderr_id")
-    private List<OrderItem> orderItems;
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    private Orderr orderr;
+
+    //    @ManyToOne(fetch = FetchType.LAZY)
+    //    @OnDelete(action = OnDeleteAction.CASCADE)
+    //    @JoinColumn(name = "orderr_id")
+    //    private Orderr orderr;
 }

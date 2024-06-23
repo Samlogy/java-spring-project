@@ -3,8 +3,10 @@ package com.example.api.service;
 import com.example.api.dto.Order.CreateOrderRequestDto;
 import com.example.api.exception.BadRequestionException;
 import com.example.api.exception.NotFoundException;
+import com.example.api.model.OrderItem;
 import com.example.api.model.Orderr;
 import com.example.api.repository.OrderRepository;
+import jakarta.transaction.Transactional;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
@@ -24,7 +26,7 @@ public class OrderService {
     public OrderService(OrderRepository orderRepository) {
         this.orderRepository = orderRepository;
     }
-    //    Map<String, Object> GetOrdersRequestDto requestDto
+
     public List<Orderr> getAllOrders(Integer customerId) {
         return orderRepository.findAll();
     }
@@ -34,52 +36,24 @@ public class OrderService {
                 .orElseThrow(() -> new NotFoundException("Order does not exist with this ID: " + orderId));
 
         orderRepository.deleteById(order.getId());
-//
-//        LocalDate currentDate = LocalDate.now();
-//        LocalDate orderDate = order.getOrderDate();
-//        LocalDate deadLineDate = orderDate.plusDays(2);
-//
-//        if (currentDate.isBefore(deadLineDate) || currentDate.isEqual(deadLineDate)) {
-//            orderItemRepository.deleteByOrderr(order);
-//            orderRepository.deleteById(orderId);
-//            return 1;
-//        }
-//        throw new BadRequestionException("Order date is more than 2 days old can not cancel this order !");
     }
 
-    public void confirmOrder(Integer orderId, Integer customerId) {
-        Orderr orderUpdate = orderRepository.findById(orderId)
-                .orElseThrow(() -> new NotFoundException("Order does not exist with this ID: " + orderId));
-
-        orderUpdate.setStatus("CONFIRMED");
-        orderRepository.save(orderUpdate);
-
-//        LocalDate currentDate = LocalDate.now();
-//        LocalDate orderDate = orderUpdate.getOrderDate();
-//        LocalDate deadLineDate = orderDate.plusDays(2);
-//
-//        if (currentDate.isBefore(deadLineDate) || currentDate.isEqual(deadLineDate)) {
-//            orderUpdate.setStatus("CONFIRMED");
-//            return orderRepository.save(orderUpdate).getId();
-//        }
-//        throw new BadRequestionException("Order date is more than 2 days old, it was confirmed by default !");
+    @Transactional
+    public void deleteOrderByOrderId(Integer orderId,
+                                     Integer customerId) {
+        Orderr orderr = orderRepository.findById(orderId)
+                .orElseThrow(() -> new NotFoundException("Order not found with id: " + orderId));
+        orderRepository.delete(orderr);
     }
 
-    public void createOrder(CreateOrderRequestDto requestDto, Integer customerId) {
+    public void createOrder(CreateOrderRequestDto dto, Integer customerId) {
         Orderr newOrder = Orderr.builder()
-                .totalPrice(requestDto.getTotalPrice())
+                .totalPrice(dto.getTotalPrice())
                 .status("PENDING")
                 .orderDate(LocalDate.now())
+                .orderItems(dto.getOrderItems())
                 .build();
-        Orderr orderAdded = orderRepository.save(newOrder);
-
-//        List<OrderItem> orderItems = requestDto.getOrderItems();
-//
-//        List<OrderItem> orderItemsUpdated = orderItems.stream().map(item -> {
-//            item.setOrderr(orderAdded);
-//            return item;
-//        }).collect(Collectors.toList());
-//        orderItemRepository.saveAll(orderItemsUpdated);
+        orderRepository.save(newOrder);
     }
 
     public Orderr getOrderById(Integer orderId, Integer customerId) {

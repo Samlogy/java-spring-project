@@ -30,23 +30,16 @@ public class OrderResource {
     }
 
     @DeleteMapping("/{orderId}/customer/{customerId}")
-    public ResponseEntity<?> cancelOrder(@PathVariable Integer orderId,
+    public ResponseEntity<?> deleteOrderById(@PathVariable Integer orderId,
                                          @PathVariable Integer customerId){
-        orderService.cancelOrder(orderId, customerId);
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-    }
-
-    @PatchMapping("/{orderId}/customer/{customerId}")
-    public ResponseEntity<?> confirmOrder(@PathVariable Integer orderId,
-                                          @PathVariable Integer customerId){
-        orderService.confirmOrder(orderId, customerId);
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        orderService.deleteOrderByOrderId(orderId, customerId);
+        return ResponseEntity.noContent().build();
     }
 
     @PostMapping("/customer/{customerId}")
-    public ResponseEntity<?> createOrder(@RequestBody CreateOrderRequestDto requestDto,
+    public ResponseEntity<?> createOrder(@RequestBody CreateOrderRequestDto dto,
                                          @PathVariable Integer customerId){
-        orderService.createOrder(requestDto, customerId);
+        orderService.createOrder(dto, customerId);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
