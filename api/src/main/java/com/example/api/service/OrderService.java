@@ -64,8 +64,8 @@ public class OrderService {
         return order;
     }
 
-    private Sort.Direction getSortDirection(String direction) {
-        if (direction.equals("desc")) return Sort.Direction.DESC;
-        return Sort.Direction.ASC;
-    }
+//    private Sort.Direction getSortDirection(String direction) {
+//        if (direction.equals("desc")) return Sort.Direction.DESC;
+//        return Sort.Direction.ASC;
+//    }
 }

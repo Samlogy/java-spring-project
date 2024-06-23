@@ -39,6 +39,17 @@ spring:
         locations: classpath:db.migration
         baseline-on-migrate: true
 
+    security:
+        oauth2:
+            resourceserver:
+                jwt:
+                    issuer-uri: http://localhost:8180/realms/my-test-realm
+
+logging:
+    level:
+        org:
+            springframework:
+                security: TRACE
 
 #profiles:
 #    active: int
