@@ -23,13 +23,13 @@ public class Orderr {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(name = "status")
+    @Column(name = "status", nullable = false)
     private String status;
 
-    @Column(name = "total_price")
+    @Column(name = "total_price", nullable = false)
     private float totalPrice;
 
-    @Column(name = "order_date")
+    @Column(name = "order_date", nullable = false)
     private LocalDate orderDate;
 
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
