@@ -3,9 +3,11 @@ package com.example.api.resource;
 import com.example.api.dto.Order.CreateOrderRequestDto;
 import com.example.api.model.Orderr;
 import com.example.api.service.OrderService;
+import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -16,6 +18,7 @@ import java.util.Map;
 @RestController
 @RequestMapping("api/v1/order")
 @Slf4j
+@Validated
 public class OrderResource {
     private final OrderService orderService;
 
@@ -36,8 +39,8 @@ public class OrderResource {
         return ResponseEntity.noContent().build();
     }
 
-    @PostMapping("/customer/{customerId}")
-    public ResponseEntity<?> createOrder(@RequestBody CreateOrderRequestDto dto,
+    @PostMapping("customer/{customerId}")
+    public ResponseEntity<?> createOrder(@Valid @RequestBody CreateOrderRequestDto dto,
                                          @PathVariable Integer customerId){
         orderService.createOrder(dto, customerId);
         return new ResponseEntity<>(HttpStatus.CREATED);
