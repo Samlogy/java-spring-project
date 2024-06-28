@@ -1,4 +1,4 @@
-package com.example.api.unit;
+package com.example.api.unit.Customer;
 
 
 import com.example.api.exception.NotFoundException;
