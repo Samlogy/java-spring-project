@@ -20,18 +20,13 @@ spring:
         database: postgresql
         show-sql: true
         hibernate:
-            ddl-auto: create-drop #validate
+            ddl-auto: create-drop #validate create-drop
             naming:
                 strategy: org.hibernate.cfg.ImprovedNamingStrategy
         properties:
             hibernate:
                 dialect: org.hibernate.dialect.PostgreSQLDialect
                 format_sql: true
-    datasource:
-        url: jdbc:postgresql://localhost:5433/keycloak
-        username: postgres
-        password: postgres
-        driverClassName: org.postgresql.Driver
 
     flyway:
         baselineOnMigrate:  true
@@ -39,20 +34,10 @@ spring:
         locations: classpath:db.migration
         baseline-on-migrate: true
 
-    security:
-        oauth2:
-            resourceserver:
-                jwt:
-                    issuer-uri: http://localhost:8180/realms/my-test-realm
+    profiles:
+        active: int
 
-logging:
-    level:
-        org:
-            springframework:
-                security: TRACE
 
-#profiles:
-#    active: int
 
 #security:
 #    user:
