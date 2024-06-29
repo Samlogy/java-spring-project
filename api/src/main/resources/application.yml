@@ -35,7 +35,7 @@ spring:
         baseline-on-migrate: true
 
     profiles:
-        active: int
+        active: local
 
 
 
