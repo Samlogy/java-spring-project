@@ -1,6 +1,7 @@
 package com.example.api.resource;
 
 
+import com.example.api.dto.CreateCustomerDto;
 import com.example.api.service.CustomerService;
 import com.example.api.model.Customer;
 import lombok.extern.slf4j.Slf4j;
@@ -40,8 +41,8 @@ public class CustomerResource {
     }
 
     @PostMapping()
-    public ResponseEntity<?> registerCustomer(@RequestBody Customer customer) {
-        Customer newCustomer = customerService.createCustomer(customer);
+    public ResponseEntity<?> registerCustomer(@RequestBody CreateCustomerDto dto) {
+        Customer newCustomer = customerService.createCustomer(dto);
         return ResponseEntity.ok(newCustomer);
     }
 }

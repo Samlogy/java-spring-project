@@ -27,6 +27,11 @@ public class Customer {
     @Column(name = "phone", nullable = false)
     private int phone;
 
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "address_id", referencedColumnName = "id")
+    private Address address;
+
+
 //    @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, orphanRemoval=true)
 //    @OnDelete(action = OnDeleteAction.CASCADE)
 //    private List<Orderr> orders = new ArrayList<Orderr>();
