@@ -1,6 +1,7 @@
 package com.example.api.dto.Order;
 
 import com.example.api.model.OrderItem;
+import com.example.api.model.Product;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -31,5 +32,9 @@ public class CreateOrderRequestDto {
     @NotNull(message = "Order items cannot be null")
     @Size(min = 1, message = "There must be at least one order item")
     private Set<@Valid OrderItem> orderItems;
+
+    @NotNull(message = "Products cannot be null")
+    @Size(min = 1, message = "There must be at least one product")
+    private Set<@Valid Product> products;
 }
 

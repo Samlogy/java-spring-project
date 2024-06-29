@@ -33,10 +33,16 @@ public class Orderr {
     @Column(name = "order_date", nullable = false)
     private LocalDate orderDate;
 
-//    @OneToMany(cascade = CascadeType.ALL)
-//    @JoinColumn(name = "orderr_id")
-//    private Set<OrderItem> orderItems;
-
-    @OneToMany(mappedBy = "orderr", cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "orderr_id")
     private Set<OrderItem> orderItems;
+
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinTable(
+            name = "orderr_product",
+            joinColumns = @JoinColumn(name = "orderr_id"),
+            inverseJoinColumns = @JoinColumn(name = "product_id")
+    )
+    private Set<Product> Products;
 }
+
