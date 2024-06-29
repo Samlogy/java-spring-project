@@ -48,12 +48,26 @@ public class OrderService {
 
     public void createOrder(CreateOrderRequestDto dto, Integer customerId) {
         // uni-directional => (Orderr)
+//        Orderr newOrder = Orderr.builder()
+//                .totalPrice(dto.getTotalPrice())
+//                .status("PENDING")
+//                .orderDate(LocalDate.now())
+//                .orderItems(dto.getOrderItems())
+//                .build();
+//        orderRepository.save(newOrder);
+
+        // bi-directional
         Orderr newOrder = Orderr.builder()
                 .totalPrice(dto.getTotalPrice())
                 .status("PENDING")
                 .orderDate(LocalDate.now())
                 .orderItems(dto.getOrderItems())
                 .build();
+        if (newOrder.getOrderItems() != null) {
+            for (OrderItem item : newOrder.getOrderItems()) {
+                item.setOrderr(newOrder);
+            }
+        }
         orderRepository.save(newOrder);
     }
 
@@ -64,4 +78,5 @@ public class OrderService {
 //        order.setOrderItems(items);
         return order;
     }
+
 }

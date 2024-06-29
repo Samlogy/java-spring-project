@@ -33,7 +33,10 @@ public class Orderr {
     @Column(name = "order_date", nullable = false)
     private LocalDate orderDate;
 
-    @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "orderr_id")
+//    @OneToMany(cascade = CascadeType.ALL)
+//    @JoinColumn(name = "orderr_id")
+//    private Set<OrderItem> orderItems;
+
+    @OneToMany(mappedBy = "orderr", cascade = CascadeType.ALL)
     private Set<OrderItem> orderItems;
 }

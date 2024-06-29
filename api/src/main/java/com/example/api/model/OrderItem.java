@@ -27,4 +27,8 @@ public class OrderItem {
 
     @Column(name = "price", nullable = false)
     private float price;
+
+    @ManyToOne
+    @JoinColumn(name = "order_id")
+    private Orderr orderr;
 }
