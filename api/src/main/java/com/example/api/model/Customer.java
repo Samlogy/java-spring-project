@@ -27,8 +27,11 @@ public class Customer {
     @Column(name = "phone", nullable = false)
     private int phone;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "address_id", referencedColumnName = "id")
+//    @OneToOne(cascade = CascadeType.ALL) // => uni-directional relationship
+//    @JoinColumn(name = "address_id", referencedColumnName = "id")
+//    private Address address;
+
+    @OneToOne(mappedBy = "customer", cascade = CascadeType.ALL)
     private Address address;
 
 

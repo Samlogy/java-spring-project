@@ -31,12 +31,25 @@ public class CustomerService {
     }
 
     public Customer createCustomer(CreateCustomerDto dto) {
+        // uni-directional relationship (Customer)
+//        Customer newCustomer = Customer.builder()
+//                .fullName(dto.getFullName())
+//                .email(dto.getEmail())
+//                .phone(dto.getPhone())
+//                .address(dto.getAddress())
+//                .build();
+//        return customerRepository.save(newCustomer);
+
+        // bi-directional relationship
         Customer newCustomer = Customer.builder()
                 .fullName(dto.getFullName())
                 .email(dto.getEmail())
                 .phone(dto.getPhone())
                 .address(dto.getAddress())
                 .build();
+        if (newCustomer.getAddress() != null) {
+            newCustomer.getAddress().setCustomer(newCustomer);
+        }
         return customerRepository.save(newCustomer);
     }
 
