@@ -47,6 +47,7 @@ public class OrderService {
     }
 
     public void createOrder(CreateOrderRequestDto dto, Integer customerId) {
+        // uni-directional => (Orderr)
         Orderr newOrder = Orderr.builder()
                 .totalPrice(dto.getTotalPrice())
                 .status("PENDING")
@@ -63,9 +64,4 @@ public class OrderService {
 //        order.setOrderItems(items);
         return order;
     }
-
-//    private Sort.Direction getSortDirection(String direction) {
-//        if (direction.equals("desc")) return Sort.Direction.DESC;
-//        return Sort.Direction.ASC;
-//    }
 }

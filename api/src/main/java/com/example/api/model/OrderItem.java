@@ -27,14 +27,4 @@ public class OrderItem {
 
     @Column(name = "price", nullable = false)
     private float price;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "orderr_id")
-    @OnDelete(action = OnDeleteAction.CASCADE)
-    private Orderr orderr;
-
-    //    @ManyToOne(fetch = FetchType.LAZY)
-    //    @OnDelete(action = OnDeleteAction.CASCADE)
-    //    @JoinColumn(name = "orderr_id")
-    //    private Orderr orderr;
 }

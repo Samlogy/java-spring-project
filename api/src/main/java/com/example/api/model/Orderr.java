@@ -11,6 +11,7 @@ import org.hibernate.annotations.OnDeleteAction;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 @Data
 @AllArgsConstructor
@@ -32,7 +33,7 @@ public class Orderr {
     @Column(name = "order_date", nullable = false)
     private LocalDate orderDate;
 
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "orderr_id")
-    private List<OrderItem> orderItems;
+    private Set<OrderItem> orderItems;
 }

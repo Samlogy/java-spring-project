@@ -8,6 +8,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import jakarta.validation.constraints.*;
 import java.util.List;
+import java.util.Set;
 
 
 @Data
@@ -29,6 +30,6 @@ public class CreateOrderRequestDto {
 
     @NotNull(message = "Order items cannot be null")
     @Size(min = 1, message = "There must be at least one order item")
-    private List<@Valid OrderItem> orderItems;
+    private Set<@Valid OrderItem> orderItems;
 }
 
