@@ -1,4 +1,4 @@
-package com.example.api.dto;
+package com.example.api.dto.Customer;
 
 
 import com.example.api.model.Address;

@@ -1,7 +1,7 @@
 package com.example.api.resource;
 
 
-import com.example.api.dto.CreateCustomerDto;
+import com.example.api.dto.Customer.CreateCustomerDto;
 import com.example.api.service.CustomerService;
 import com.example.api.model.Customer;
 import lombok.extern.slf4j.Slf4j;

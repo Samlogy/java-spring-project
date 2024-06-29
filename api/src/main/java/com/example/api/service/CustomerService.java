@@ -1,7 +1,7 @@
 package com.example.api.service;
 
 
-import com.example.api.dto.CreateCustomerDto;
+import com.example.api.dto.Customer.CreateCustomerDto;
 import com.example.api.exception.NotFoundException;
 import com.example.api.model.Customer;
 import com.example.api.repository.CustomerRepository;
