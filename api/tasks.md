@@ -1,16 +1,17 @@
 ** TODO **
 
-* input validation
-* essayer d'avoir une app modulaire (décomposer en module) comment faire ? et le faire ?
-* essayer d'avoir une app microservices (décomposer en microservices) comment faire ? et le faire ?
-* fix environement (profiles: int, prod, ...)
-* fix [jacoco => bdd / cucumber]
-* relationships (1.1, 1.N, N.N)
 * add tests => relationships (1.1, 1.N, N.N)
+* essayer d'avoir une app microservices (décomposer en microservices) comment faire ? et le faire ? (product / customer microservices)
+* fix [jacoco => bdd / cucumber]
+* fix dockerfile
+* add jenkins => pipeline ci/cd
+
+
 
 ** PENDING **
-* relationships (1.1, 1.N, N.N) => understanding
-* relationships (1.1, N.N) => implement
+* essayer d'avoir une app modulaire (décomposer en module) comment faire ? et le faire ? (product / customer module)
+
+
 
 ** DONE **
 * faire foncitonner plusieurs environnements (int / qua/ prod)
@@ -21,3 +22,7 @@
 * ajouter des tests:
     unit/ integration
     tdd ?
+* input validation
+* relationships (1.1, 1.N, N.N) => understanding
+* relationships (1.1, 1.N, N.N) => implement
+* fix environement (profiles: int, prod, ...)
