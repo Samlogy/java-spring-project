@@ -41,8 +41,8 @@ public class CustomerResource {
     }
 
     @PostMapping()
-    public ResponseEntity<?> registerCustomer(@RequestBody CreateCustomerDto dto) {
-        Customer newCustomer = customerService.createCustomer(dto);
-        return ResponseEntity.ok(newCustomer);
+    public ResponseEntity<?> createCustomer(@RequestBody CreateCustomerDto dto) {
+        customerService.createCustomer(dto);
+        return new ResponseEntity<>(HttpStatus.CREATED);
     }
 }

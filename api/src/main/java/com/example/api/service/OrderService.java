@@ -41,7 +41,6 @@ public class OrderService {
         orderRepository.deleteById(order.getId());
     }
 
-    @Transactional
     public void deleteOrderByOrderId(Integer orderId,
                                      Integer customerId) {
         Orderr orderr = orderRepository.findById(orderId)
@@ -73,7 +72,7 @@ public class OrderService {
 //        }
 //        orderRepository.save(newOrder);
 
-        // uni-directional N.N
+        // uni-directional N*N
         Orderr newOrder = Orderr.builder()
                 .totalPrice(dto.getTotalPrice())
                 .status("PENDING")

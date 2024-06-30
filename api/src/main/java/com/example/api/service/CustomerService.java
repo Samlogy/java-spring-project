@@ -30,27 +30,27 @@ public class CustomerService {
                 .orElseThrow(() -> new NotFoundException("Customer does not exist with this ID: " + customerId));
     }
 
-    public Customer createCustomer(CreateCustomerDto dto) {
+    public void createCustomer(CreateCustomerDto dto) {
         // uni-directional relationship (Customer)
-//        Customer newCustomer = Customer.builder()
-//                .fullName(dto.getFullName())
-//                .email(dto.getEmail())
-//                .phone(dto.getPhone())
-//                .address(dto.getAddress())
-//                .build();
-//        return customerRepository.save(newCustomer);
-
-        // bi-directional relationship
         Customer newCustomer = Customer.builder()
                 .fullName(dto.getFullName())
                 .email(dto.getEmail())
                 .phone(dto.getPhone())
                 .address(dto.getAddress())
                 .build();
-        if (newCustomer.getAddress() != null) {
-            newCustomer.getAddress().setCustomer(newCustomer);
-        }
-        return customerRepository.save(newCustomer);
+        customerRepository.save(newCustomer);
+
+        // bi-directional relationship
+//        Customer newCustomer = Customer.builder()
+//                .fullName(dto.getFullName())
+//                .email(dto.getEmail())
+//                .phone(dto.getPhone())
+//                .address(dto.getAddress())
+//                .build();
+//        if (newCustomer.getAddress() != null) {
+//            newCustomer.getAddress().setCustomer(newCustomer);
+//        }
+//        customerRepository.save(newCustomer);
     }
 
     public void deleteCustomer(Integer customerId) {

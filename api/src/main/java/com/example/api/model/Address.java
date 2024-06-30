@@ -18,7 +18,7 @@ public class Address {
     @Column(name = "zip_code", nullable = false)
     private String zipCode;
 
-    @OneToOne
-    @JoinColumn(name = "customer_id")
-    private Customer customer;
+//    @OneToOne // => uni-directional relationship
+//    @JoinColumn(name = "customer_id")
+//    private Customer customer;
 }
